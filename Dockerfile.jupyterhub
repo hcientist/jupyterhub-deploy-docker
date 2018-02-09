@@ -10,11 +10,12 @@ RUN /opt/conda/bin/conda install -yq psycopg2=2.7 && \
         oauthenticator==0.7.* \
         dockerspawner==0.9.*
 
+# unnecessary for my purposes (SSL termination before jupyter hub)
 # Copy TLS certificate and key
-ENV SSL_CERT /srv/jupyterhub/secrets/jupyterhub.crt
-ENV SSL_KEY /srv/jupyterhub/secrets/jupyterhub.key
-COPY ./secrets/*.crt $SSL_CERT
-COPY ./secrets/*.key $SSL_KEY
+#ENV SSL_CERT /srv/jupyterhub/secrets/jupyterhub.crt
+#ENV SSL_KEY /srv/jupyterhub/secrets/jupyterhub.key
+#COPY ./secrets/*.crt $SSL_CERT
+#COPY ./secrets/*.key $SSL_KEY
 RUN chmod 700 /srv/jupyterhub/secrets && \
     chmod 600 /srv/jupyterhub/secrets/*
 
