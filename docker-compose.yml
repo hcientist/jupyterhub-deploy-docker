@@ -34,10 +34,17 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:rw"
       # Bind Docker volume on host for JupyterHub database and cookie secrets
       - "data:${DATA_VOLUME_CONTAINER}"
-    ports:
-      - "443:443"
+    #ports:
+    #  - "443:443"
     links:
       - hub-db
+    labels:
+      - "traefik.backend=gitlab_cs_jmu"
+      - "traefik.docker.network=nginx"
+      - "traefik.frontend.rule=Host:jupyter.hci.cs.jmu.edu"
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      #- "traefik.domain=git..cs.jmu.edu"
     environment:
       # All containers will join this network
       DOCKER_NETWORK_NAME: ${DOCKER_NETWORK_NAME}
